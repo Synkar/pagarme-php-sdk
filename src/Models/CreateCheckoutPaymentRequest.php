@@ -112,7 +112,6 @@ class CreateCheckoutPaymentRequest implements \JsonSerializable
         string $successUrl,
         bool $skipCheckoutSuccessPage,
         bool $billingAddressEditable,
-        CreateAddressRequest $billingAddress,
         array $acceptedBrands
     ) {
         $this->acceptedPaymentMethods = $acceptedPaymentMethods;
@@ -120,7 +119,6 @@ class CreateCheckoutPaymentRequest implements \JsonSerializable
         $this->successUrl = $successUrl;
         $this->skipCheckoutSuccessPage = $skipCheckoutSuccessPage;
         $this->billingAddressEditable = $billingAddressEditable;
-        $this->billingAddress = $billingAddress;
         $this->acceptedBrands = $acceptedBrands;
     }
 
@@ -501,7 +499,9 @@ class CreateCheckoutPaymentRequest implements \JsonSerializable
         }
         $json['skip_checkout_success_page']     = $this->skipCheckoutSuccessPage;
         $json['billing_address_editable']       = $this->billingAddressEditable;
-        $json['billing_address']                = $this->billingAddress;
+        if (isset($this->billing_address)) {
+            $json['billing_address']                 = $this->billing_address;
+        }
         if (isset($this->bankTransfer)) {
             $json['bank_transfer']              = $this->bankTransfer;
         }

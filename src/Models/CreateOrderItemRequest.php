@@ -48,12 +48,11 @@ class CreateOrderItemRequest implements \JsonSerializable
      * @param int $quantity
      * @param string $category
      */
-    public function __construct(int $amount, string $description, int $quantity, string $category)
+    public function __construct(int $amount, string $description, int $quantity)
     {
         $this->amount = $amount;
         $this->description = $description;
         $this->quantity = $quantity;
-        $this->category = $category;
     }
 
     /**
@@ -175,7 +174,9 @@ class CreateOrderItemRequest implements \JsonSerializable
         $json['amount']      = $this->amount;
         $json['description'] = $this->description;
         $json['quantity']    = $this->quantity;
-        $json['category']    = $this->category;
+        if (isset($this->category)) {
+            $json['category']    = $this->category;
+        }
         if (isset($this->code)) {
             $json['code']    = $this->code;
         }

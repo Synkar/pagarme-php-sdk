@@ -109,15 +109,11 @@ class CreateOrderRequest implements \JsonSerializable
         array $items,
         CreateCustomerRequest $customer,
         array $payments,
-        string $code,
-        array $metadata,
         bool $closed
     ) {
         $this->items = $items;
         $this->customer = $customer;
         $this->payments = $payments;
-        $this->code = $code;
-        $this->metadata = $metadata;
         $this->closed = $closed;
     }
 
@@ -482,14 +478,18 @@ class CreateOrderRequest implements \JsonSerializable
         $json['items']                 = $this->items;
         $json['customer']              = $this->customer;
         $json['payments']              = $this->payments;
-        $json['code']                  = $this->code;
+        if (!empty($this->code)) {
+            $json['code']       = $this->code;
+        }
+        if (!empty($this->metadata)) {
+            $json['metadata']       = $this->metadata;
+        }
         if (!empty($this->customerId)) {
             $json['customer_id']       = $this->customerId['value'];
         }
         if (isset($this->shipping)) {
             $json['shipping']          = $this->shipping;
         }
-        $json['metadata']              = $this->metadata;
         if (isset($this->antifraudEnabled)) {
             $json['antifraud_enabled'] = $this->antifraudEnabled;
         }
