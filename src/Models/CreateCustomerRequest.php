@@ -70,8 +70,6 @@ class CreateCustomerRequest implements \JsonSerializable
     /**
      * @param string $name
      * @param string $email
-     * @param string $document
-     * @param string $type
      * @param CreateAddressRequest $address
      * @param array<string,string> $metadata
      * @param CreatePhonesRequest $phones
@@ -80,21 +78,9 @@ class CreateCustomerRequest implements \JsonSerializable
     public function __construct(
         string $name,
         string $email,
-        string $document,
-        string $type,
-        CreateAddressRequest $address,
-        array $metadata,
-        CreatePhonesRequest $phones,
-        string $code
     ) {
         $this->name = $name;
         $this->email = $email;
-        $this->document = $document;
-        $this->type = $type;
-        $this->address = $address;
-        $this->metadata = $metadata;
-        $this->phones = $phones;
-        $this->code = $code;
     }
 
     /**
@@ -319,14 +305,26 @@ class CreateCustomerRequest implements \JsonSerializable
         $json = [];
         $json['name']              = $this->name;
         $json['email']             = $this->email;
-        $json['document']          = $this->document;
-        $json['type']              = $this->type;
-        $json['address']           = $this->address;
-        $json['metadata']          = $this->metadata;
-        $json['phones']            = $this->phones;
-        $json['code']              = $this->code;
         if (isset($this->gender)) {
             $json['gender']        = $this->gender;
+        }
+        if (isset($this->document)) {
+            $json['document']        = $this->document;
+        }
+        if (isset($this->type)) {
+            $json['type']        = $this->type;
+        }
+        if (isset($this->address)) {
+            $json['address']        = $this->address;
+        }
+        if (isset($this->metadata)) {
+            $json['metadata']        = $this->metadata;
+        }
+        if (isset($this->phones)) {
+            $json['phones']        = $this->phones;
+        }
+        if (isset($this->code)) {
+            $json['code']        = $this->code;
         }
         if (isset($this->documentType)) {
             $json['document_type'] = $this->documentType;
